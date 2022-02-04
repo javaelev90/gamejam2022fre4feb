@@ -35,10 +35,11 @@ public class PlayerController : MonoBehaviour
         colliderCenter = transform.TransformPoint(collider.bounds.center);
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //Vector3 rotateTowards = mousePos - colliderCenter;
-        //float singlestep = speed * Time.deltaTime;
-        //Vector2 newDirection = Vector3.RotateTowards(transform.forward, rotateTowards, singlestep, 0.0f);
-        //transform.rotation = Quaternion.LookRotation(newDirection);
+        Vector3 rotateTowards = mousePos - colliderCenter;
+        float rotation = Mathf.Atan2(rotateTowards.y, rotateTowards.x);
+        float degrees = Mathf.Rad2Deg * rotation;
+        transform.rotation = Quaternion.Euler(0, 0, degrees - 90);
+
 
         if (horizontalDir != 0 || verticalDir != 0)
         {
@@ -49,8 +50,6 @@ public class PlayerController : MonoBehaviour
             isMoving = false;
         }
 
-        //float rotation = Mathf.Atan2(rotateTowards.y, rotateTowards.x);
-        //float degrees = Mathf.Rad2Deg * rotation;
 
 
 
