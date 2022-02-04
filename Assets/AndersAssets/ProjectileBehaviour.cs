@@ -8,6 +8,6 @@ public class ProjectileBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody2D>().AddRelativeForce(transform.forward * speedModifier);
+        //GetComponent<Rigidbody2D>().AddRelativeForce(transform.forward * speedModifier);
     }
 }

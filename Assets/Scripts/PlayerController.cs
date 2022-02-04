@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private float force = 5f;
     private bool isMoving;
     private float speed = 1.0f;
+    [SerializeField]private GameObject projectilePrefab;
 
     private void Awake()
     {
@@ -38,8 +39,7 @@ public class PlayerController : MonoBehaviour
         Vector3 rotateTowards = mousePos - colliderCenter;
         float rotation = Mathf.Atan2(rotateTowards.y, rotateTowards.x);
         float degrees = Mathf.Rad2Deg * rotation;
-        transform.rotation = Quaternion.Euler(0, 0, degrees - 90);
-
+        transform.rotation = Quaternion.Euler(0, 0, degrees);
 
         if (horizontalDir != 0 || verticalDir != 0)
         {
@@ -50,7 +50,16 @@ public class PlayerController : MonoBehaviour
             isMoving = false;
         }
 
+        if (Input.GetKeyDown("space"))
+        {
+            Camera cam = Camera.main;
 
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 aim = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+            GameObject bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            bullet.transform.LookAt(aim);
+            bullet.GetComponent<Rigidbody2D>().AddForce(aim * 50);
+        }
 
 
     }
